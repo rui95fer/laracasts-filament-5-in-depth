@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Feature\FeatureStatus;
 use App\Models\Feature;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,14 +20,14 @@ class FeatureFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(),
-            'status' => $this->faker->randomElement(['Proposed', 'Planned', 'In Progress', 'Completed']),
+            'status' => $this->faker->randomElement(FeatureStatus::cases()),
             'type' => $this->faker->randomElement(['Feature', 'Bugfix', 'Integration']),
             'description' => $this->faker->paragraph(),
             'effort_in_days' => $this->faker->numberBetween(1, 300),
             'priority' => $this->faker->numberBetween(1, 10),
             'cost' => $this->faker->randomFloat(2, 2000, 200000),
             'target_delivery_date' => $this->faker->optional()->dateTimeBetween(startDate: now(), endDate: now()->addYear()),
-            'delivered_at' => null
+            'delivered_at' => null,
         ];
     }
 }

@@ -18,6 +18,8 @@ class FeaturesTable
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('status')
+                    ->badge()
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('type')
                     ->searchable(),
