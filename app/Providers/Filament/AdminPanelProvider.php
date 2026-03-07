@@ -30,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->unsavedChangesAlerts()
             ->databaseTransactions()
+            ->strictAuthorization()
             ->login()
             ->registration()
             ->passwordReset()
