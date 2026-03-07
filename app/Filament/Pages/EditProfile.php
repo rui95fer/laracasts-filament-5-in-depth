@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class EditProfile extends \Filament\Auth\Pages\EditProfile
@@ -11,19 +12,17 @@ class EditProfile extends \Filament\Auth\Pages\EditProfile
     {
         return $schema
             ->components([
-                $this->getNameFormComponent(),
-                $this->getEmailFormComponent(),
-                TextInput::make('phone')
-                    ->label('Phone')
-                    ->prefixIcon('heroicon-o-phone')
-                    ->tel()
-                    ->mask('(000) 000-0000')
-                    ->required()
-                    ->minLength(14)
-                    ->maxLength(14),
-                $this->getPasswordFormComponent(),
-                $this->getPasswordConfirmationFormComponent(),
-                $this->getCurrentPasswordFormComponent(),
+                Section::make('Profile Information')
+                    ->schema([
+                        $this->getNameFormComponent(),
+                        $this->getEmailFormComponent(),
+                        TextInput::make('phone')
+                            ->phone()
+                            ->required(),
+                        $this->getPasswordFormComponent(),
+                        $this->getPasswordConfirmationFormComponent(),
+                        $this->getCurrentPasswordFormComponent(),
+                    ])
             ]);
     }
 }

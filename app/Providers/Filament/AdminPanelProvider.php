@@ -35,7 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->passwordReset()
             ->emailVerification()
             ->emailChangeVerification()
-            ->profile(EditProfile::class)
+            ->profile(EditProfile::class, isSimple: false)
             ->brandLogo(asset('images/roadmap-light.png'))
             ->darkModeBrandLogo(asset('images/roadmap-dark.png'))
             ->colors([
