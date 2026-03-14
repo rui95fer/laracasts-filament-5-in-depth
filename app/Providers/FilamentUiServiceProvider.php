@@ -124,8 +124,9 @@ class FilamentUiServiceProvider extends ServiceProvider
             return $richEditor
                 ->toolbarButtons([
                     ['bold', 'italic', 'underline', 'strike', 'link'],
-                    ['h2', 'h3', 'alignStart', 'alignCenter', 'alignEnd'],
-                    ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
+                    ['h2', 'h3'],
+                    ['bulletList', 'orderedList', 'blockquote'],
+                    ['undo', 'redo'],
                 ]);
         });
     }
