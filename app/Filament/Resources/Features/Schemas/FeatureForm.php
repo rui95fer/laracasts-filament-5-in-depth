@@ -10,6 +10,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Slider;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
@@ -41,7 +42,19 @@ class FeatureForm
                 TextInput::make('effort_in_days')
                     ->required()
                     ->numeric()
-                    ->default(0),
+                    ->default(0)
+                    ->afterStateUpdatedJs(<<<'JS'
+                        $set('cost', Number($state ?? 0) * ($get('is_high_cost') ? 1500 : 1000))
+                        JS
+                    ),
+                Toggle::make('is_high_cost')
+                    ->label('High cost')
+                    ->default(false)
+                    ->dehydrated(false)
+                    ->afterStateUpdatedJs(<<<'JS'
+                        $set('cost', Number($get('effort_in_days') ?? 0) * ($state ? 1500 : 1000))
+                        JS
+                    ),
                 Slider::make('priority')
                     ->range(minValue: 1, maxValue: 10)
                     ->step(1)
@@ -61,7 +74,7 @@ class FeatureForm
                         ['Planned', 'In Progress'].includes($get('status'))
                         JS
                     )
-                    ->required(fn(Get $get): bool => in_array($get('status'), [FeatureStatus::Planned, FeatureStatus::InProgress], true)),
+                    ->required(fn (Get $get): bool => in_array($get('status'), [FeatureStatus::Planned, FeatureStatus::InProgress], true)),
                 DateTimePicker::make('delivered_at'),
             ]);
     }
