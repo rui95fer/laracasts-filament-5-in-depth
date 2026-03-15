@@ -11,6 +11,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Slider;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 
 class FeatureForm
@@ -55,7 +56,12 @@ class FeatureForm
                     ->numeric()
                     ->default(0)
                     ->prefix('$'),
-                DatePicker::make('target_delivery_date'),
+                DatePicker::make('target_delivery_date')
+                    ->visibleJs(<<<'JS'
+                        ['Planned', 'In Progress'].includes($get('status'))
+                        JS
+                    )
+                    ->required(fn(Get $get): bool => in_array($get('status'), [FeatureStatus::Planned, FeatureStatus::InProgress], true)),
                 DateTimePicker::make('delivered_at'),
             ]);
     }
