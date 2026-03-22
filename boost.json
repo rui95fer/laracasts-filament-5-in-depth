@@ -1,11 +1,14 @@
 {
     "agents": [
-        "junie",
-        "opencode"
+        "claude_code",
+        "copilot"
     ],
     "guidelines": true,
     "herd_mcp": false,
     "mcp": true,
+    "packages": [
+        "filament/filament"
+    ],
     "sail": false,
     "skills": [
         "livewire-development",
