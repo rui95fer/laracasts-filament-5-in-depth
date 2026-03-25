@@ -6,6 +6,8 @@ use App\Enums\Feature\FeatureStatus;
 use App\Enums\Feature\FeatureType;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Repeater\TableColumn;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Slider;
@@ -97,7 +99,7 @@ class FeatureForm
                 Section::make('Scheduling')
                     ->description('Set the target delivery and completion dates.')
                     ->columnSpanFull()
-                    ->columns(2)
+                    ->columns()
                     ->visibleJs(<<<'JS'
                         ['Planned', 'In Progress', 'Completed'].includes($get('status'))
                         JS
@@ -108,13 +110,36 @@ class FeatureForm
                                 ['Planned', 'In Progress'].includes($get('status'))
                                 JS
                             )
-                            ->required(fn (Get $get): bool => in_array($get('status'), [FeatureStatus::Planned, FeatureStatus::InProgress], true)),
+                            ->required(fn(Get $get): bool => in_array($get('status'), [FeatureStatus::Planned, FeatureStatus::InProgress], true)),
                         DateTimePicker::make('delivered_at')
                             ->visibleJs(<<<'JS'
                                 ['Completed'].includes($get('status'))
                                 JS
                             )
-                            ->required(fn (Get $get): bool => in_array($get('status'), [FeatureStatus::Completed], true)),
+                            ->required(fn(Get $get): bool => $get('status') === FeatureStatus::Completed),
+                    ]),
+                Section::make('Milestones')
+                    ->description('Track key milestones for this feature.')
+                    ->columnSpanFull()
+                    ->schema([
+                        Repeater::make('milestones')
+                            ->relationship()
+                            ->table([
+                                TableColumn::make('Title')->markAsRequired(),
+                                TableColumn::make('Due Date')->markAsRequired(),
+                                TableColumn::make('Completed'),
+                            ])
+                            ->schema([
+                                TextInput::make('title')
+                                    ->required(),
+                                DatePicker::make('due_date')
+                                    ->required(),
+                                Toggle::make('is_completed')
+                                    ->default(false),
+                            ])
+                            ->minItems(1)
+                            ->maxItems(10)
+                            ->compact(),
                     ]),
             ]);
     }

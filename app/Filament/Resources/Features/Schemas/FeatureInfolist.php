@@ -2,7 +2,11 @@
 
 namespace App\Filament\Resources\Features\Schemas;
 
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\RepeatableEntry;
+use Filament\Infolists\Components\RepeatableEntry\TableColumn;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class FeatureInfolist
@@ -34,6 +38,24 @@ class FeatureInfolist
                 TextEntry::make('updated_at')
                     ->dateTime()
                     ->placeholder('-'),
+                Section::make('Milestones')
+                    ->description('Key milestones for this feature.')
+                    ->columnSpanFull()
+                    ->schema([
+                        RepeatableEntry::make('milestones')
+                            ->table([
+                                TableColumn::make('Title'),
+                                TableColumn::make('Due Date'),
+                                TableColumn::make('Completed'),
+                            ])
+                            ->schema([
+                                TextEntry::make('title'),
+                                TextEntry::make('due_date')
+                                    ->date(),
+                                IconEntry::make('is_completed')
+                                    ->boolean(),
+                            ]),
+                    ]),
             ]);
     }
 }
