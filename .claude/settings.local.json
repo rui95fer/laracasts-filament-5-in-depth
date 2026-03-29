@@ -4,7 +4,9 @@
       "mcp__laravel-boost__search-docs",
       "Bash(vendor/bin/pint --dirty 2>&1)",
       "Bash(vendor/bin/pint --dirty)",
-      "Bash(php artisan:*)"
+      "Bash(php artisan:*)",
+      "mcp__laravel-boost__tinker",
+      "mcp__laravel-boost__list-artisan-commands"
     ]
   },
   "enableAllProjectMcpServers": true,

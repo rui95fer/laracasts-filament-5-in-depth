@@ -20,6 +20,16 @@ class Feature extends Model
         ];
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function votes(): HasMany
+    {
+        return $this->hasMany(Vote::class);
+    }
+
     public function milestones(): HasMany
     {
         return $this->hasMany(Milestone::class);
