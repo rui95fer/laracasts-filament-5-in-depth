@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Feature\FeatureStatus;
+use App\Enums\Feature\FeatureType;
 use Database\Factories\FeatureFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,7 @@ class Feature extends Model
     {
         return [
             'status' => FeatureStatus::class,
+            'type' => FeatureType::class,
         ];
     }
 

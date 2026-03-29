@@ -6,7 +6,12 @@
       "Bash(vendor/bin/pint --dirty)",
       "Bash(php artisan:*)",
       "mcp__laravel-boost__tinker",
-      "mcp__laravel-boost__list-artisan-commands"
+      "mcp__laravel-boost__list-artisan-commands",
+      "Bash(gh api:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(xargs grep:*)",
+      "Bash(find /c/Users/RMMF/Herd/laracasts-filament-5-in-depth/vendor/filament/forms/stubs -name *.stub)",
+      "Bash(node:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
