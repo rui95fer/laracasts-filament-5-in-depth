@@ -32,6 +32,16 @@ class CommentPolicy
         return $user->is_admin || $user->is($comment->user);
     }
 
+    public function approve(User $user, Comment $comment): bool
+    {
+        return $user->is_admin;
+    }
+
+    public function approveAny(User $user): bool
+    {
+        return $user->is_admin;
+    }
+
     public function deleteAny(User $user): bool
     {
         return $user->is_admin;
