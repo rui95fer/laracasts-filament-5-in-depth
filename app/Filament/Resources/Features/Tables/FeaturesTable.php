@@ -2,11 +2,14 @@
 
 namespace App\Filament\Resources\Features\Tables;
 
+use App\Enums\Feature\FeatureStatus;
+use App\Enums\Feature\FeatureType;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class FeaturesTable
@@ -22,16 +25,20 @@ class FeaturesTable
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('type')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('effort_in_days')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('priority')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('cost')
                     ->money()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('target_delivery_date')
                     ->date()
                     ->sortable(),
@@ -48,7 +55,10 @@ class FeaturesTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options(FeatureStatus::class),
+                SelectFilter::make('type')
+                    ->options(FeatureType::class),
             ])
             ->recordActions([
                 ViewAction::make(),

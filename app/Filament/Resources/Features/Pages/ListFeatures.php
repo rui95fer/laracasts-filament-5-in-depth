@@ -3,8 +3,9 @@
 namespace App\Filament\Resources\Features\Pages;
 
 use App\Filament\Resources\Features\FeatureResource;
-use Filament\Actions\CreateAction;
+use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Icons\Heroicon;
 
 class ListFeatures extends ListRecords
 {
@@ -13,7 +14,12 @@ class ListFeatures extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            Action::make('import')
+                ->label('Import')
+                ->icon(Heroicon::ArrowDownTray)
+                ->modalContent(view('filament.actions.clickup-tasks-modal'))
+                ->modalSubmitAction(false)
+                ->modalWidth('7xl'),
         ];
     }
 }

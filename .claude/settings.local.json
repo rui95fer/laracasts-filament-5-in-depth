@@ -11,7 +11,8 @@
       "WebFetch(domain:github.com)",
       "Bash(xargs grep:*)",
       "Bash(find /c/Users/RMMF/Herd/laracasts-filament-5-in-depth/vendor/filament/forms/stubs -name *.stub)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "mcp__laravel-boost__get-absolute-url"
     ]
   },
   "enableAllProjectMcpServers": true,
